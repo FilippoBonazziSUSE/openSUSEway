@@ -27,7 +27,7 @@ License:        MIT
 Group:          Metapackages
 URL:            https://github.com/openSUSE/openSUSEway
 Source0:        https://github.com/openSUSE/openSUSEway/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
-Source1:	openSUSEway.rpmlintrc
+Source1:        openSUSEway.rpmlintrc
 
 BuildArch:      noarch
 BuildRequires:  aaa_base
@@ -158,7 +158,7 @@ Provides:       waybar-branding = %{version}
 Conflicts:      waybar-branding
 Supplements:    (waybar and branding-openSUSE)
 Requires:       adobe-sourcesanspro-fonts
-Requires:	fontawesome-fonts
+Requires:       fontawesome-fonts
 
 #BRAND: /etc/xdg/waybar/config.jsonc and /etc/xdg/waybar/style.css
 #BRAND: contain openSUSE config and branding
