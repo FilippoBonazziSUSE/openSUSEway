@@ -20,13 +20,13 @@
 %define waybar_version %(rpm -q --queryformat "%%{version}" waybar)
 
 Name:           openSUSEway
-Version:        0.17.0
+Version:        0.17.1beta
 Release:        0
 Summary:        The openSUSEway desktop environment meta package
 License:        MIT
 Group:          Metapackages
 URL:            https://github.com/openSUSE/openSUSEway
-Source0:        https://github.com/openSUSE/openSUSEway/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source0:        %{name}-%{version}.tar.gz
 Source1:        openSUSEway.rpmlintrc
 
 BuildArch:      noarch
