@@ -130,6 +130,7 @@ Requires:       SwayNotificationCenter
 Requires:       brightnessctl
 Requires:       fontawesome-fonts
 Requires:       jq
+Requires:       openSUSEway-keyboard-layout-generator
 Requires:       pamixer
 Requires:       patterns-sway-sway
 Requires:       pavucontrol
@@ -169,6 +170,7 @@ This package provides the openSUSE look and feel for waybar.
 Summary:        openSUSE branding of greetd
 Group:          System/Management
 BuildRequires:  greetd
+Requires:       openSUSEway-keyboard-layout-generator
 Provides:       greetd-branding = %{version}
 Conflicts:      greetd-branding
 Supplements:    (greetd and branding-openSUSE)
@@ -178,6 +180,15 @@ Supplements:    (greetd and branding-openSUSE)
 
 %description -n greetd-branding-openSUSE
 This package provides the openSUSE look and feel for greetd.
+
+%package -n     openSUSEway-keyboard-layout-generator
+Summary:        Keyboard layout generator for openSUSEway
+Group:          System/Management
+Requires:       sh
+Requires:       grep
+
+%description -n openSUSEway-keyboard-layout-generator
+Generate a Sway keyboard layout configuration file from the vconsole system keymap.
 
 %prep
 %autosetup -p1 -n openSUSEway-%{version}
@@ -235,6 +246,9 @@ install -D -p -m 644 .config/swaync/style.css %{buildroot}%{_sysconfdir}/sway/sw
 ## swaylock
 install -D -p -m 644 .config/swaylock/openSUSEway.conf %{buildroot}%{_sysconfdir}/swaylock/openSUSEway.conf
 
+## Keyboard layout generator
+install -D -p -m 755 scripts/xkb-layout-generator %{buildroot}%{_libexecdir}/openSUSEway/xkb-layout-generator
+
 %pre -n openSUSEway
 # bug #1176195, don't force enviroment, cleaning up old installations
 test -e %{_sysconfdir}/profile.d/openSUSEway.sh && rm %{_sysconfdir}/profile.d/openSUSEway.sh || true
@@ -247,7 +261,15 @@ test -e %{_prefix}/lib/environment.d/50-openSUSEway.conf && rm %{_prefix}/lib/en
 test -e %{_datadir}/wayland-sessions/sway.desktop && \
     mv -n %{_datadir}/wayland-sessions/sway.desktop %{_datadir}/wayland-sessions/sway.desktop.orig || true
 cp %{_datadir}/wayland-sessions/sway.desktop.brand %{_datadir}/wayland-sessions/sway.desktop
+
+# Generate openSUSEway sway keyboard layout configuration based on system
+test -e /etc/sway/config.d/10-keyboard.conf || /usr/libexec/openSUSEway/xkb-layout-generator > /etc/sway/config.d/10-keyboard.conf || true
+
 %service_add_post sway-session.target sway.service
+
+%post -n greetd-branding-openSUSE
+# Generate openSUSEway greetd keyboard layout configuration based on system
+test -e /etc/greetd/keyboard || /usr/libexec/openSUSEway/xkb-layout-generator > /etc/greetd/keyboard || true
 
 %preun -n sway-branding-openSUSE
 %service_del_preun sway-session.target sway.service
@@ -269,6 +291,7 @@ test -e %{_datadir}/wayland-sessions/sway.desktop.orig && \
 %attr(644,greeter,greeter) %config(noreplace) %{_sysconfdir}/greetd/sway-config
 %attr(644,greeter,greeter) %config(noreplace) %{_sysconfdir}/greetd/environments
 %attr(644,greeter,greeter) %config(noreplace) %{_sysconfdir}/greetd/style.css
+%attr(644,greeter,greeter) %ghost %config(missingok) %{_sysconfdir}/greetd/keyboard
 
 %files -n patterns-openSUSEway
 %dir %{_defaultdocdir}/patterns
@@ -279,6 +302,7 @@ test -e %{_datadir}/wayland-sessions/sway.desktop.orig && \
 %config %{_sysconfdir}/sway/config
 %config %{_sysconfdir}/sway/env
 %dir %{_sysconfdir}/sway/config.d
+%ghost %config(missingok) %{_sysconfdir}/sway/config.d/10-keyboard.conf
 %config %{_sysconfdir}/sway/config.d/50-openSUSE.conf
 %config %{_sysconfdir}/sway/config.d/55-openSUSE-windows.conf
 %{_prefix}/lib/systemd/user/sway-session.target
@@ -307,5 +331,9 @@ test -e %{_datadir}/wayland-sessions/sway.desktop.orig && \
 %dir %{_sysconfdir}/xdg/waybar
 %config(noreplace) %{_sysconfdir}/xdg/waybar/config.jsonc
 %config(noreplace) %{_sysconfdir}/xdg/waybar/style.css
+
+%files -n openSUSEway-keyboard-layout-generator
+%dir %{_libexecdir}/openSUSEway
+%{_libexecdir}/openSUSEway/xkb-layout-generator
 
 %changelog

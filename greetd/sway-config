@@ -4,6 +4,8 @@ input "type:touchpad" {
   tap enabled
 }
 
+include keyboard
+
 exec "gtkgreet -l -s /etc/greetd/style.css; swaymsg exit"
 
 bindsym Mod4+shift+e exec swaynag \
@@ -13,5 +15,3 @@ bindsym Mod4+shift+e exec swaynag \
 	-b 'Reboot' 'systemctl reboot'
 
 exec /usr/libexec/polkit-gnome-authentication-agent-1
-
-#include /etc/sway/config.d/
