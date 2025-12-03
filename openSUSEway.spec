@@ -262,13 +262,13 @@ test -e %{_datadir}/wayland-sessions/sway.desktop && \
 cp %{_datadir}/wayland-sessions/sway.desktop.brand %{_datadir}/wayland-sessions/sway.desktop
 
 # Generate openSUSEway sway keyboard layout configuration based on system
-test -e /etc/sway/config.d/10-keyboard.conf || /usr/libexec/openSUSEway/xkb-layout-generator > /etc/sway/config.d/10-keyboard.conf || true
+test -e /etc/sway/config.d/10-keyboard.conf || /usr/libexec/openSUSEway/xkb-layout-generator > /etc/sway/config.d/10-keyboard.conf
 
 %service_add_post sway-session.target sway.service
 
 %post -n greetd-branding-openSUSE
 # Generate openSUSEway greetd keyboard layout configuration based on system
-test -e /etc/greetd/keyboard || /usr/libexec/openSUSEway/xkb-layout-generator > /etc/greetd/keyboard || true
+test -e /etc/greetd/keyboard || /usr/libexec/openSUSEway/xkb-layout-generator > /etc/greetd/keyboard
 
 %preun -n sway-branding-openSUSE
 %service_del_preun sway-session.target sway.service
