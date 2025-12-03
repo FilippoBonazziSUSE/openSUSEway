@@ -7,6 +7,7 @@ vconsole="/etc/vconsole.conf"
 ###############################################################################
 
 xkb_layout="$(grep -Po '(?<=XKBLAYOUT=).*' $vconsole)"
+xkb_model="$(grep -Po '(?<=XKBMODEL=).*' $vconsole)"
 xkb_options="$(grep -Po '(?<=XKBOPTIONS=).*' $vconsole)"
 xkb_variant="$(grep -Po '(?<=XKBVARIANT=).*' $vconsole)"
 
@@ -37,6 +38,10 @@ cat << EOF
 input "type:keyboard" {
   xkb_layout $xkb_layout
 EOF
+# The xkb_model is optional
+if [ -n "$xkb_model" ]; then
+  echo "  xkb_model $xkb_model"
+fi
 # The xkb_options are optional
 if [ -n "$xkb_options" ]; then
   echo "  xkb_options $xkb_options"
