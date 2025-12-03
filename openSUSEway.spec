@@ -282,8 +282,6 @@ test -e %{_datadir}/wayland-sessions/sway.desktop.orig && \
 %files
 %dir %{_sysconfdir}/xdg/qt5ct/
 %config(noreplace) %{_sysconfdir}/xdg/qt5ct/qt5ct.conf
-%dir %{_datadir}/openSUSEway/
-%dir %{_datadir}/openSUSEway/helpers/
 
 %files -n greetd-branding-openSUSE
 %dir %{_sysconfdir}/greetd/
