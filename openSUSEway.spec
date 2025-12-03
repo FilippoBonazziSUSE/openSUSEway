@@ -184,7 +184,6 @@ This package provides the openSUSE look and feel for greetd.
 %package -n     openSUSEway-keyboard-layout-generator
 Summary:        Keyboard layout generator for openSUSEway
 Group:          System/Management
-Requires:       sh
 Requires:       grep
 
 %description -n openSUSEway-keyboard-layout-generator
