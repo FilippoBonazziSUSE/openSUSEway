@@ -8,6 +8,7 @@ vconsole="/etc/vconsole.conf"
 
 xkb_layout="$(grep -Po '(?<=XKBLAYOUT=).*' $vconsole)"
 xkb_options="$(grep -Po '(?<=XKBOPTIONS=).*' $vconsole)"
+xkb_variant="$(grep -Po '(?<=XKBVARIANT=).*' $vconsole)"
 
 # Generate the XKB layout if empty
 if [ -z "$xkb_layout" ]; then
@@ -39,5 +40,9 @@ EOF
 # The xkb_options are optional
 if [ -n "$xkb_options" ]; then
   echo "  xkb_options $xkb_options"
+fi
+# The xkb_variant is optional
+if [ -n "$xkb_variant" ]; then
+  echo "  xkb_variant $xkb_variant"
 fi
 echo "}"
