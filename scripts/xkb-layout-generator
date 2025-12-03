@@ -6,8 +6,6 @@ vconsole="/etc/vconsole.conf"
 
 ###############################################################################
 
-set -xeu
-
 xkb_layout="$(grep -Po '(?<=XKBLAYOUT=).*' $vconsole)"
 xkb_options="$(grep -Po '(?<=XKBOPTIONS=).*' $vconsole)"
 
