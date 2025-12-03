@@ -16,7 +16,7 @@ if [ -z "$xkb_layout" ]; then
     keymap="$(grep -Po '(?<=KEYMAP=).*' $vconsole)"
 
     if [ -z "$keymap" ]; then
-      echo "fatal: no xkb layout or keymap found"
+      echo "fatal: no xkb layout or keymap found" >&2
       exit 1
     else
       cp "$vconsole" "${vconsole}.bak"
@@ -25,7 +25,7 @@ if [ -z "$xkb_layout" ]; then
       # Try to extract the XBD layout again
       xkb_layout="$(grep -Po '(?<=XKBLAYOUT=).*' $vconsole)"
       if [ -z "$xkb_layout" ]; then
-        echo "fatal: could not generate xkb layout from keymap"
+        echo "fatal: could not generate xkb layout from keymap" >&2
         exit 2
       fi
     fi
