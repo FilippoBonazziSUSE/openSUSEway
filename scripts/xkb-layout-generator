@@ -1,4 +1,9 @@
 #!/bin/sh
+#
+# Copyright (c) 2025 SUSE LLC and contributors
+#
+# Author: Filippo Bonazzi <filippo.bonazzi@suse.com>
+#
 # Generate a Sway keyboard configuration block with the xkb_* options
 # corresponding to the XKB* variables found in /etc/vconsole.conf
 #
