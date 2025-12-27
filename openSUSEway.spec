@@ -1,7 +1,7 @@
 #
 # spec file for package openSUSEway
 #
-# Copyright (c) 2025 SUSE LLC
+# Copyright (c) 2025 SUSE LLC and contributors
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -27,7 +27,7 @@ License:        MIT
 Group:          Metapackages
 URL:            https://github.com/openSUSE/openSUSEway
 Source0:        https://github.com/openSUSE/openSUSEway/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
-Source1:	openSUSEway.rpmlintrc
+Source1:        openSUSEway.rpmlintrc
 
 BuildArch:      noarch
 BuildRequires:  aaa_base
@@ -157,7 +157,7 @@ Provides:       waybar-branding = %{version}
 Conflicts:      waybar-branding
 Supplements:    (waybar and branding-openSUSE)
 Requires:       adobe-sourcesanspro-fonts
-Requires:	fontawesome-fonts
+Requires:       fontawesome-fonts
 
 #BRAND: /etc/xdg/waybar/config.jsonc and /etc/xdg/waybar/style.css
 #BRAND: contain openSUSE config and branding
@@ -260,8 +260,6 @@ test -e %{_datadir}/wayland-sessions/sway.desktop.orig && \
 %files
 %dir %{_sysconfdir}/xdg/qt5ct/
 %config(noreplace) %{_sysconfdir}/xdg/qt5ct/qt5ct.conf
-%dir %{_datadir}/openSUSEway/
-%dir %{_datadir}/openSUSEway/helpers/
 
 %files -n greetd-branding-openSUSE
 %dir %{_sysconfdir}/greetd/
